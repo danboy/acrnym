@@ -1,0 +1,23 @@
+.sidebar.pure-u-2-5
+  .pure-menu.pure-menu-open
+    a.pure-menu-heading acrnym
+    ul
+      if(everyauth.loggedIn)
+        li
+          a(href="/profile")= user.name
+        li
+          a(href="/profile") One Design Company
+        li
+          a(href="/profile") ACRNYM Project Manager
+        li
+          a(href="/profile") All Goals
+      else
+        li
+          a(href="/auth/github") github
+      li.pure-menu-heading Manage
+        li
+          a(href="/organizations") Organizations
+        li
+          a(href="/organizations") Users
+        li
+          a(href="/organizations") Projects

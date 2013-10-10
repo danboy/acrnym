@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  .pure-u-3-5
+    form.pure-form.pure-form-stacked.margin( action="/organizations", method="post" )
+      input(type='hidden', name='_csrf', value=token)
+      fieldset
+        legend New Organization
+        .pure-control-group
+          label( for="name" ) Name
+          input#name( type="text", name="name")
+        input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

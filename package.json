@@ -1,0 +1,19 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.0"
+  , "jade": "*"
+  , "mongoose": "*"
+  , "mongoose-nested-set": "*"
+  , "everyauth": "*"
+  , "connect-assets": "*"
+  , "connect-mongo": "*"
+  , "less": "*"
+  , "bootstrap-stylus": "*"
+  }
+}
