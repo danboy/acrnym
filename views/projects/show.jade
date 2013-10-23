@@ -1,0 +1,29 @@
+extends ../layout
+include ../mixins/forms
+include ../mixins/stories
+block content
+  types = ['feature','bug','chore']
+  section#narrative
+    h1 #{session.organization.name}::#{project.name}
+    a(href="/projects/#{project.id}/edit") Edit
+    ul.narrative-list
+      if project.stories
+        each story in project.stories
+          li.narrative-list-item(class="#{types[story.type]}")
+            menu.narrative-list-item-menu
+              a( href="/stories/#{story.id}" )
+                = story.name
+              a( href="/stories/#{story.id}/edit" )
+                | edit
+            mixin getPoints(points, story.points)
+    form.pure-form.pure-form-stacked.margin( action="/stories", method="post" )
+      input(type='hidden', name='_csrf', value=token)
+      fieldset
+        legend New Story
+        mixin input('name', 'Name')
+        mixin hidden('owner', user.id)
+        mixin hidden('project', project.id)
+        mixin text('description', 'Description')
+        mixin select('type', 'Type', [['feature',0],['bug',1],['chore',2]])
+        mixin select('points', 'Points', points)
+        input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

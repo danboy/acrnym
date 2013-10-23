@@ -1,6 +1,23 @@
 extends ../layout
+include ../mixins/forms
 
 block content
-  .pure-u-3-5
-    .margin
-      h1= org.name
+  section#narrative
+    h1= org.name
+    ul
+      if org.projects
+        each project in org.projects
+          li
+            a( href="/projects/#{project.id}" )
+              = project.name
+    form.pure-form.pure-form-stacked.margin( action="/projects", method="post" )
+      input(type='hidden', name='_csrf', value=token)
+      fieldset
+        legend New Project
+        mixin input('name', 'Name')
+        mixin hidden('owner', user.id)
+        mixin hidden('organization', org.id)
+        mixin text('description', 'Description')
+        mixin select('pointScale', 'Point Scale', pointScales)
+        
+        input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

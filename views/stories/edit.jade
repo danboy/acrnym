@@ -1,0 +1,16 @@
+extends ../layout
+include ../mixins/forms
+include ../mixins/stories
+block content
+  form.pure-form.pure-form-stacked.margin( action="/stories/#{story.id}/edit", method="post" )
+    input(type='hidden', name='_csrf', value=token)
+    fieldset
+      legend #{story.name}
+      mixin input('name', 'Name', 'text', story.name)
+      mixin hidden('owner', user.id)
+      mixin hidden('requester', user.id)
+      mixin hidden('project', story.project)
+      mixin text('description', 'Description', story.description)
+      mixin select('points', 'Points', points, story.points)
+      mixin select('type', 'Type', [['feature',0],['bug',1],['chore',2]], story.type)
+      input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

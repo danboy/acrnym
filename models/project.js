@@ -3,8 +3,12 @@ var mongoose = require('mongoose')
   , ObjectId = Schema.ObjectId
   , projectSchema = new Schema({
       name:         {type: String}
-    , organization: { type: Schema.Types.ObjectId, ref: 'Organization' }
+    , owner:        { type: Schema.Types.ObjectId, ref: 'User' }
+    , objectives:   [{ type: Schema.Types.ObjectId, ref: 'Objective' }]
+    , project:      { type: Schema.Types.ObjectId, ref: 'Project' }
+    , stories:      [{ type: Schema.Types.ObjectId, ref: 'Story' }]
     , roles:        [{ type: Schema.Types.ObjectId, ref: 'Role' }]
+    , pointScale:   {type: Number}
   });
  
 module.exports = mongoose.model('Project', projectSchema);

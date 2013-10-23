@@ -8,6 +8,10 @@ var express = require('express')
   , mongoose    = require('mongoose')
   , numCPUs = require('os').cpus().length;
 
+require('mongoose-cache').install(mongoose, {
+  max: 50
+, maxage: 120000
+});
 var app = express();
 app.db = ('development' == app.get('env')) ? 'mongodb://localhost/acrnym' : 'mongodb://localhost/acrnym';
 mongoose.connect(app.db);

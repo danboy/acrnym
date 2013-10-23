@@ -1,0 +1,12 @@
+extends ../layout
+include ../mixins/forms
+
+block content
+  = JSON.stringify(org)
+  .pure-u-3-5
+    form.pure-form.pure-form-stacked.margin( action="/organizations/edit", method="post" )
+      input(type='hidden', name='_csrf', value=token)
+      fieldset
+        legend Edit #{org.name}
+        mixin input( "name", "Name", "text", org.name )
+        input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

@@ -1,0 +1,14 @@
+extends ../layout
+include ../mixins/forms
+
+block content
+  form.pure-form.pure-form-stacked.margin( action="/projects", method="post" )
+    input(type='hidden', name='_csrf', value=token)
+    fieldset
+      legend #{project.name}
+      mixin input('name', 'Name', 'text', project.name)
+      mixin hidden('owner', user.id)
+      mixin text('description', 'Description')
+      mixin select('pointScale', 'Point Scale', pointScales, project.pointScale)
+      
+      input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

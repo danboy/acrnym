@@ -1,16 +1,15 @@
 extends ../layout
 
 block content
-  .pure-u-3-5
-    .pure-menu.pure-menu-open
-      .pure-menu-heading Organizations
-      ul
-        each org in orgs
-          li
-            a( href="/organizations/#{org.id}" )
-              = org.name
-              i.icon-fixed-width.icon-pencil
+  .pure-menu.pure-menu-open
+    .pure-menu-heading Organizations
+    ul
+      each org in currentUser.organizations
         li
-          a.pure-button( href="/organizations/new" ) 
-            i.icon-plus
-            = " Add"
+          a( href="/organizations/#{org.id}" )
+            = org.name
+            i.icon-fixed-width.icon-pencil
+      li
+        a.pure-button( href="/organizations/new" ) 
+          i.icon-plus
+          = " Add"

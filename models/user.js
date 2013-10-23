@@ -11,7 +11,8 @@ var mongoose = require('mongoose')
     , roles:  [{ type: Schema.Types.ObjectId, ref: 'Role' }]
     , organizations:  [{ type: Schema.Types.ObjectId, ref: 'Organization' }]
     , projects:  [{ type: Schema.Types.ObjectId, ref: 'Project' }]
-    , obejectives:  [{ type: Schema.Types.ObjectId, ref: 'Objective' }]
+    , stories:  [{ type: Schema.Types.ObjectId, ref: 'Story' }]
+    , objectives:  [{ type: Schema.Types.ObjectId, ref: 'Objective' }]
     , salted_pass: String
   });
 
