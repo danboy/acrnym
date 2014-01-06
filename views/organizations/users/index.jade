@@ -1,0 +1,23 @@
+extends ../../layout
+include ../../mixins/forms
+include ../../mixins/stories
+block content
+  section#narrative
+    h2 Users
+    form.pure-form(action="/organizations/#{organization}/users", method="post")
+      .pure-control-group
+        input(type='hidden', name='_csrf', value=token)
+        input(type='text', name='email', class='user-typeahead')
+        input.user-add.pure-button.pure-button-primary( type="button", type="submit", value="+" )
+    ul.users
+      - each user in users
+        li= user.email
+              
+block sidebar
+  .margin
+    .metrics
+block scripts
+  script.
+    var url = "/organizations/#{organization}/users";
+  != js('organizations')
+  != js('views/users')

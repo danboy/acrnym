@@ -1,0 +1,13 @@
+extends ../layout
+include ../mixins/forms
+include ../mixins/stories
+block content
+  section.objectives
+    h1 Add a goal.
+    form.pure-form.pure-form-stacked.margin( action="/objectives", method="post" )
+      input(type='hidden', name='_csrf', value=token)
+      fieldset
+        legend New Goal
+        mixin input('name', 'Name')
+        mixin hidden('owner', user.id)
+        input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )

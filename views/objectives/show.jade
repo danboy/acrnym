@@ -1,0 +1,25 @@
+extends ../layout
+include ../mixins/forms
+include ../mixins/stories
+block content
+  section#narrative
+    h1 #{objective.name}
+    ul
+      - each metric in objective.metrics
+        li
+          = metric.description
+          |&nbsp;
+          a(class='edit', href='/metrics/#{metric._id}/edit') edit
+          |&nbsp;
+          a(class='delete', data-object='#{metric._id}', data-url='/metrics/') remove
+    form.pure-form.pure-form-stacked.margin( action="/metrics", method="post" )
+      input(type='hidden', name='_csrf', value=token)
+      fieldset
+        legend Key Result
+        mixin hidden('owner', user.id)
+        mixin hidden('objective', objective.id)
+        mixin text('description', 'Description')
+        input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )
+block scripts
+  script
+    $('.delete').initializeDelete('#{token}');
