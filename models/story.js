@@ -5,7 +5,10 @@ var mongoose = require('mongoose')
       name:         { type: String}
     , description:  { type: String}
     , points:       { type: Number}
+    , position:     { type: Number}
+    , bucket:       { type: Number}
     , type:         { type: Number }
+    , status:       { type: Number}
     , requester:    { type: Schema.Types.ObjectId, ref: 'User' }
     , owner:        { type: Schema.Types.ObjectId, ref: 'User' }
     , project:      { type: Schema.Types.ObjectId, ref: 'Project' }

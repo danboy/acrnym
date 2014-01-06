@@ -10,6 +10,7 @@
   , "jade": "*"
   , "underscore": "*"
   , "mongoose": "*"
+  , "mongoose-cache": "*"
   , "mongoose-nested-set": "*"
   , "everyauth": "*"
   , "connect-assets": "*"

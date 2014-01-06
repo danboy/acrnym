@@ -2,9 +2,12 @@ extends ../layout
 include ../mixins/forms
 include ../mixins/stories
 block content
-  types = ['feature','bug','chore']
+  - var types = ['feature','bug','chore']
   section#narrative
-    h1 #{session.organization.name}::#{project.name}
+    h1 
+      a(href='/organizations/#{project.organization._id}') #{project.organization.name}
+      | /
+      span.project #{project.name}
     a(href="/projects/#{project.id}/edit") Edit
     ul.narrative-list
       if project.stories
@@ -16,14 +19,29 @@ block content
               a( href="/stories/#{story.id}/edit" )
                 | edit
             mixin getPoints(points, story.points)
+              
+    - each goal in user.objectives
+      li
+        a(href="/goals")= goal.name
     form.pure-form.pure-form-stacked.margin( action="/stories", method="post" )
       input(type='hidden', name='_csrf', value=token)
       fieldset
         legend New Story
-        mixin input('name', 'Name')
-        mixin hidden('owner', user.id)
-        mixin hidden('project', project.id)
-        mixin text('description', 'Description')
-        mixin select('type', 'Type', [['feature',0],['bug',1],['chore',2]])
-        mixin select('points', 'Points', points)
+        +input('name', 'Name')
+        +hidden('owner', user.id)
+        +hidden('project', project.id)
+        +text('description', 'Description')
+        +select('type', 'Type', [['feature',0],['bug',1],['chore',2]])
+        +select('points', 'Points', points)
         input.pure-button.pure-button-primary( type="button", type="submit", value="Create" )
+block sidebar
+  .margin
+    h2 Users
+    .pure-form.pure-form-stacked
+      +input('email', 'User email')(class='user-typeahead')
+      a.user-add
+    ul.users
+      - each user in project.users
+        li= user.name
+    .metrics
+      include metrics/show

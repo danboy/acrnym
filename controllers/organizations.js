@@ -20,7 +20,7 @@ module.exports = {
     });
   }
 , show: function(req, res){
-    Org.findById(req.params.id).populate('projects owner').exec(function(err, org){
+    Org.findById(req.params.id).populate('projects owner users').exec(function(err, org){
       req.session.organization = org;
       res.format({
         html: function(){
@@ -65,9 +65,16 @@ module.exports = {
         });
     });
   }
+, addUser: function(req, res){
+    User.findOne({'email': req.body.email}, function(err, user){
+       
+    });
+    
+  }
 , update: function(req, res){
     Org.update({slug: req.params.id},{$set: req.body}, {upsert: true}, function(err, org){
       res.redirect('/organizations'+org.id)
     })
   }
+, users: require('./organizations/users.js')
 }

@@ -1,14 +1,14 @@
 mixin input(name, label, type, value)
-  type = type || "text";
-  value = value || '';
+  - var type = type || "text";
+  - var value = value || '';
   .pure-control-group
     if (type != 'hidden')
       label( for="#{name}" ) #{label}
-    input( type="#{type}", name="#{name}", value="#{value}") 
+    input( type="#{type}", name="#{name}", value="#{value}", class!=attributes.class) 
 
 mixin text(name, label, value)
-  type = type || "text";
-  value = value || '';
+  - var type = type || "text";
+  - var value = value || '';
   .pure-control-group
     label( for="#{name}" ) #{label}
     textarea( type="#{type}", name="#{name}") #{value} 

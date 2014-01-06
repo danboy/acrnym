@@ -39,6 +39,9 @@ app.use(express.favicon())
   .use(require('connect-assets')({jsCompilers: require('./lib/jade-assets')}))
   .use(app.router);
 
+app.locals.css = css
+app.locals.js = js
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());

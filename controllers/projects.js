@@ -12,6 +12,9 @@ var pointsForSelect = function(points){
   });
   return collection;
 }
+var objectivesForSelect = function(objectives){
+
+};
 var createPointScaleForSelect = function(pointscales){
   return _.map(pointscales, function(point,index){return [point.type, index] })
 }
@@ -20,14 +23,17 @@ module.exports = {
     var project = new Project(req.body);
     project.save(function(err,project){
       if(err){throw err;}
-      Org.update({_id: req.body.organization},{$addToSet: {projects: project}}, function(e, org){
-        if(e){res.send(e)}
-        res.redirect("/organizations/"+req.body.organization);
-        Roles.createForOwner(project,function(roles){
-          project.roles = roles;
-          project.save(function(err, project){
-            Roles.addToUser(req.user, roles[0], project, 'projects');
-            res.send('200', project);
+      Roles.createForOwner(project,function(roles){
+        project.roles = roles;
+        project.save(function(err, project){
+          Roles.addToUser(req.user, roles[0], project, 'projects');
+          res.format({
+            html: function(){
+              res.redirect("/organizations/"+project.organization);
+            }
+          , json: function(){
+              res.send('200', project);
+            }
           });
         });
       })
@@ -39,14 +45,22 @@ module.exports = {
     });
   }
 , show: function(req, res){
-    Project.findById(req.params.id).populate('stories').exec(function(err, project){
-      req.session.pointScale = project.pointScale;
-      res.render('projects/show', { project: project, points: pointsForSelect(points[project.pointScale].values) });
+    Project.findById(req.params.id).populate('stories organization').exec(function(err, project){
+      req.session.project = project;
+      res.render('projects/show', { project: project, points: pointsForSelect(points[project.pointScale].values)});
     });
   }
 , update: function(req, res){
     Project.update({_id: req.params.id},{$set: req.body}, {upsert: true}, function(err, project){
       res.redirect('/projects/'+req.params.id)
     })
+  }
+, destroy: function(req, res){
+    Project.findById(req.params.id,function(err, project){
+      if(!err){
+        project.remove();
+        res.send({message: 'deleted', project: project});
+      }
+    });
   }
 };

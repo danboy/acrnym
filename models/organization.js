@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
     , owner:        { type: Schema.Types.ObjectId, ref: 'User' }
     , objectives:   [{ type: Schema.Types.ObjectId, ref: 'Objective' }]
     , projects:     [{ type: Schema.Types.ObjectId, ref: 'Project' }]
+    , users:     [{ type: Schema.Types.ObjectId, ref: 'User' }]
     , roles:        [{ type: Schema.Types.ObjectId, ref: 'Role' }]
   });
  

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
   , NestedSetPlugin = require('mongoose-nested-set')
+  , _ = require('underscore')
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId
   , userSchema = new Schema({
@@ -16,5 +17,8 @@ var mongoose = require('mongoose')
     , salted_pass: String
   });
 
+userSchema.methods.getObjectives = function(cb){
+  
+};
 userSchema.plugin(NestedSetPlugin);
 module.exports = mongoose.model('User', userSchema);

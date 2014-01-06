@@ -1,6 +1,5 @@
 extends ../layout
 include ../mixins/forms
-include ../mixins/stories
 block content
   form.pure-form.pure-form-stacked.margin( action="/stories/#{story.id}/edit", method="post" )
     input(type='hidden', name='_csrf', value=token)

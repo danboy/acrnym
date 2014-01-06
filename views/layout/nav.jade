@@ -3,7 +3,7 @@
     ul
       if everyauth.loggedIn
         li
-          a(href="/profile")= user.name
+          a(href="/profile") Profile
         if session.organization
           li
             a(href="/organizations/#{session.organization._id}")= session.organization.name
@@ -11,7 +11,7 @@
           li
             a(href="/organizations") Select An Organization
         li
-          a(href="/profile") All Goals
+          a(href="/logout") Logout
       else
         li
           a(href="/auth/github") github

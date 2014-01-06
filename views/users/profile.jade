@@ -4,5 +4,17 @@ block content
   .pure-u-3-5
     .margin
       h1= user.name
-      each child in children
+      h2 Goals
+      ul.goals
+        - each goal in user.objectives
+          li
+            a(href="/objectives/#{goal._id}") #{goal.name}
+      h2 Organizations
+      ul.orgs
+        - each org in user.organizations
+          li
+            a(href="/organizations/#{org._id}")= org.name
+        
+      a(href='/objectives/new') Add a goal.
+      each child in ancestors
         h2= child.name
